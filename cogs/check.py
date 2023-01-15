@@ -98,16 +98,16 @@ class Check(commands.GroupCog, name = "check"):
             SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
             SPREADSHEET_ID = '14luZ0S23K4315kfAe9ESRltNFEpq7mKCbj-pxQBNnEY'
             creds = None
-            if os.path.exists('D:\\pythonProjects\\MoCS checker\\token.json'):
+            if os.path.exists('../token.json'):
                 creds = Credentials.from_authorized_user_file('token.json', SCOPES)
             if not creds or not creds.valid:
                 if creds and creds.expired and creds.refresh_token:
                     creds.refresh(Request())
                 else:
                     flow = InstalledAppFlow.from_client_secrets_file(
-                        'D:\\pythonProjects\\MoCS checker\\credentials.json', SCOPES)
+                        '../credentials.json', SCOPES)
                     creds = flow.run_local_server(port=0)
-                with open('D:\\pythonProjects\\MoCS checker\\token.json', 'w') as token:
+                with open('../token.json', 'w') as token:
                     token.write(creds.to_json())
 
             service = build('sheets', 'v4', credentials=creds)
@@ -229,16 +229,16 @@ class Check(commands.GroupCog, name = "check"):
             SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
             SPREADSHEET_ID = '1zbNqUtaQyELNlJNl7kJuvcaCchFfzFxqSBU9olsuvbs'
             creds = None
-            if os.path.exists('D:\\pythonProjects\\MoCS checker\\token.json'):
+            if os.path.exists('../token.json'):
                 creds = Credentials.from_authorized_user_file('token.json', SCOPES)
             if not creds or not creds.valid:
                 if creds and creds.expired and creds.refresh_token:
                     creds.refresh(Request())
                 else:
                     flow = InstalledAppFlow.from_client_secrets_file(
-                        'D:\\pythonProjects\\MoCS checker\\credentials.json', SCOPES)
+                        '../credentials.json', SCOPES)
                     creds = flow.run_local_server(port=0)
-                with open('D:\\pythonProjects\\MoCS checker\\token.json', 'w') as token:
+                with open('../token.json', 'w') as token:
                     token.write(creds.to_json())
 
             service = build('sheets', 'v4', credentials=creds)
