@@ -7,6 +7,7 @@ from json import load
 
 config = load(open('config.json'))
 
+'''
 # i hate google part
 import os.path
 
@@ -16,7 +17,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 # i stop hating google part
-
+'''
 bot = commands.Bot(command_prefix = '$', help_command = None, intents=discord.Intents.all())
 
 
