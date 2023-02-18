@@ -198,7 +198,11 @@ class Check(commands.GroupCog, name = "check"):
             #request thumbnail + wait 3 seconds
             userThumbnail = await getThumbnail(userid)
             userCreated = userInfo['created']
-            userCreated = datetime.datetime.strptime(userCreated, '%Y-%m-%dT%H:%M:%S.%fZ')
+            try:
+                userCreated = datetime.datetime.strptime(userCreated, '%Y-%m-%dT%H:%M:%S.%fZ')
+            except Exception as e:
+                print(e)
+                userCreated = "ROBLOX API ERROR"
             timeNow = datetime.datetime.now()
             userCreatedDelta = (timeNow - userCreated).days
             userName = userInfo['name']
