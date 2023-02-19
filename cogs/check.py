@@ -37,22 +37,18 @@ class Check(commands.GroupCog, name = "check"):
         
         userid = user.lower()
         if userid.startswith("http://"):
-            await interaction.response.send_message("Please use `https://` in the link.", ephemeral=True)
+            await interaction.response.send_message("Please use `https://`.", ephemeral=True)
             return
-        elif not userid.startswith("https://www.roblox.com/users/") or not userid.startsiwth("https://roblox.com/users/"):
-            await interaction.response.send_message("I cannot recognize this url. Please put in a link to the user profile. Make sure it starts with https://www.roblox.com or https://roblox.com", ephemeral=True)
+        elif not userid.startswith("https://www.roblox.com/users/"):
+            await interaction.response.send_message("I cannot recognize this url. Please put in a link to the user profile.", ephemeral=True)
             return
         else:
             if not userid.endswith("/profile"):
                 await interaction.response.send_message("Please include `/profile` in the end of your link.", ephemeral=True)
                 return
             else:
-                if userid.startswith("https://www."):
-                    lengthOfURL = len(userid)
-                    userid = userid[29:lengthOfURL-8]
-                else:
-                    lengthOfURL = len(userid)
-                    userid = userid[25:lengthOfURL-8]
+                lengthOfURL = len(userid)
+                userid = userid[29:lengthOfURL-8]
 
 
         embed = discord.Embed(title="CT CHECK:", description="Running a CT check...", color=0x8F55E5)
