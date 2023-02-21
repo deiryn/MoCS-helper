@@ -82,19 +82,18 @@ class Check(commands.GroupCog, name = "check"):
             enemyGroups = [5248163, 4886107, 15294045, 15635299, 15815549, 15815551, 15815554, 15815556, 13529471, 13529222, 13871657, 13819322, 16139753, 13439446, 13529342, 13529439, 13529455, 9898651, 11439837, 10134262, 3962491, 2795991, 2650759, 2682451]
             mainGroup = 872876
             try:
-                groupsCounter = userGroups + enemyGroups
+                enemyGroupsCounter = userGroups + enemyGroups
                 #print(groupsCounter)
                 enemyCounter = 0
                 for element in enemyGroups:
-                    if countOf(groupsCounter, element) > 1:
-                        enemyCounter = enemyCounter + 1
-                    
+                    if countOf(enemyGroupsCounter, element) > 1:
+                        enemyCounter += 1
                 #print(enemyCounter)
             except Exception as e:
                 print(e)
         except Exception as e:
             print(e)
-            embed2 = discord.Embed(title="CT CHECK:", description="ROBLOX API ERROR.", color=0xFFFFFF)
+            embed2 = discord.Embed(title="CT CHECK:", description="ROBLOX API ERROR.", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
             return
 
@@ -149,7 +148,7 @@ class Check(commands.GroupCog, name = "check"):
             #google sheets shit end
         except Exception as e:
             print(e)
-            embed2 = discord.Embed(title="CT CHECK:", description="GOOGLE API ERROR.", color=0xFFFFFF)
+            embed2 = discord.Embed(title="CT CHECK:", description="GOOGLE API ERROR.", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
             return
 
@@ -164,7 +163,7 @@ class Check(commands.GroupCog, name = "check"):
             await interaction.edit_original_response(embed=embed2)
         except Exception as e:
             print(e)
-            embed2 = discord.Embed(title="CT CHECK:", description="INTERNAL CODE ERROR.", color=0xFFFFFF)
+            embed2 = discord.Embed(title="CT CHECK:", description="INTERNAL CODE ERROR.", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
 
     @app_commands.command(name = "ie", description = "A check that would be useful for IE to see the important info of the user before passing them.")
@@ -191,6 +190,7 @@ class Check(commands.GroupCog, name = "check"):
         embed.add_field(name="Enemy Groups", value="*Loading data in...*", inline=False)
         embed.add_field(name="In Main IRF group:", value="*Loading data in...*", inline=True)
         embed.add_field(name="In The Bolsheviks group:", value="*Loading data in...*", inline=True)
+        embed.add_field(name="≤2 ministries:", value=f"*Loading data in...*" inline=True)
         embed.add_field(name="Blacklisted", value="*Loading data in...*", inline=False)
         #embed.set_thumbnail(url=userThumbnail)
         await interaction.response.send_message(embed=embed)
@@ -214,13 +214,20 @@ class Check(commands.GroupCog, name = "check"):
             enemyGroups = [5248163, 4886107, 15294045, 15635299, 15815549, 15815551, 15815554, 15815556, 13529471, 13529222, 13871657, 13819322, 16139753, 13439446, 13529342, 13529439, 13529455, 9898651, 11439837, 10134262, 3962491, 2795991, 2650759, 2682451]
             bolshGroup = 991882
             mainGroup = 872876
+            ministerialGroups = [3052496, 5217820, 5458754, 5225010, 5291387]
             try:
-                groupsCounter = userGroups + enemyGroups
+                enemyGroupsCounter = userGroups + enemyGroups
                 #print(groupsCounter)
                 enemyCounter = 0
                 for element in enemyGroups:
-                    if countOf(groupsCounter, element) > 1:
+                    if countOf(enemyGroupsCounter, element) > 1:
                         enemyCounter = enemyCounter + 1
+            
+                ministerialGroupsCounter = userGroups + ministerialGroups
+                ministerialCounter = 0
+                for element in ministerialGroups:
+                    if countOf(ministerialGroupsCounter, element) > 1:
+                        ministerialCounter += 1
                     
                 #print(enemyCounter)
             except Exception as e:
@@ -229,7 +236,7 @@ class Check(commands.GroupCog, name = "check"):
             await sleep(1)
         except Exception as e:
             print(e)
-            embed2 = discord.Embed(title="IE CHECK:", description="ROBLOX API ERROR.", color=0xFFFFFF)
+            embed2 = discord.Embed(title="IE CHECK:", description="ROBLOX API ERROR.", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
             return
 
@@ -280,7 +287,7 @@ class Check(commands.GroupCog, name = "check"):
             #google sheets shit end
         except Exception as e:
             print(e)
-            embed2 = discord.Embed(title="IE CHECK:", description="GOOGLE API ERROR.", color=0xFFFFFF)
+            embed2 = discord.Embed(title="IE CHECK:", description="GOOGLE API ERROR.", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
             return
 
@@ -291,12 +298,13 @@ class Check(commands.GroupCog, name = "check"):
             embed.add_field(name="Enemy Groups", value=f"{(lambda: 'Clear!', lambda: '__ENEMY GROUPS DETECTED__')[enemyCounter > 0]()}", inline=False)
             embed.add_field(name="In Main IRF group:", value=f"{(lambda: '❌', lambda: '✅')[mainGroup in userGroups]()}", inline=True)
             embed.add_field(name="In The Bolsheviks group:", value=f"{(lambda: '❌', lambda: '✅')[bolshGroup in userGroups]()}", inline=True)
+            embed.add_field(name="≤2 ministries:", value=f"{(lambda: '__>2__', lambda: '≤2')[ministerialCounter <= 2]()}", inline=True)
             embed.add_field(name="Blacklisted", value=f"{(lambda: 'Not detected', lambda: '__BLACKLISTED__')[userName in nameValues and lifted == 'FALSE']()}", inline=False)
             embed.set_thumbnail(url=userThumbnail)
             await interaction.edit_original_response(embed=embed)
         except Exception as e:
             print(e)
-            embed2 = discord.Embed(title="IE CHECK:", description="INTERNAL CODE ERROR.", color=0xFFFFFF)
+            embed2 = discord.Embed(title="IE CHECK:", description="INTERNAL CODE ERROR.", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
 
 async def setup(bot):
