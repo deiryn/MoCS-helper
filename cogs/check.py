@@ -33,7 +33,7 @@ class Check(commands.GroupCog, name = "check"):
         super().__init__()
 
     @app_commands.command(name = "ct", description="Make a check on the profile. Useful for before and after CT.")
-    async def ct(self, interaction: discord.Interaction, user: str, roleTest: bool):
+    async def ct(self, interaction: discord.Interaction, user: str):
         
         userid = user.lower()
         if userid.startswith("http://"):
@@ -165,10 +165,8 @@ class Check(commands.GroupCog, name = "check"):
             embed2.add_field(name="Account Age", value=f"{(lambda: '>60 days', lambda: '__<60 DAYS__')[userCreatedDelta < 60]()}", inline=True)
             embed2.add_field(name="Enemy Groups", value=f"{(lambda: 'Clear!', lambda: '__ENEMY GROUPS DETECTED__')[enemyCounter > 0]()}", inline=False)
             embed2.add_field(name="Blacklisted", value=f"{(lambda: 'Not detected', lambda: '__BLACKLISTED__')[userName in nameValues and lifted == 'FALSE']()}", inline=True)
-            if roleTest:
-                embed2.add_field(name="Rank in Main Group:", value=f"{mainGroupRole}", inline=True)
-            else:
-                embed2.add_field(name="Ranked Foreigner:", value=f"{(lambda: '__FOREIGNER__', lambda: 'Not Foreigner')[mainGroup in userGroups]()}", inline=True)
+            embed2.add_field(name="Rank in Main Group:", value=f"{mainGroupRole}", inline=True)
+            #embed2.add_field(name="Ranked Foreigner:", value=f"{(lambda: '__FOREIGNER__', lambda: 'Not Foreigner')[mainGroup in userGroups]()}", inline=True)
             embed2.set_thumbnail(url=userThumbnail)
             await interaction.edit_original_response(embed=embed2)
         except Exception as e:
