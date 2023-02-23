@@ -56,7 +56,7 @@ class Check(commands.GroupCog, name = "check"):
         embed.add_field(name="Account Age", value="*Loading data in...*", inline=True)
         embed.add_field(name="Enemy Groups", value="*Loading data in...*", inline=False)
         embed.add_field(name="Blacklisted", value="*Loading data in...*", inline=True)
-        embed.add_field(name="Ranked Foreigner:", value="*Loading data in...*", inline=True)
+        embed.add_field(name="Rank in Main Group:", value="*Loading data in...*", inline=True)
         #embed.set_thumbnail(url=userThumbnail)
         await interaction.response.send_message(embed=embed)
 
@@ -87,7 +87,6 @@ class Check(commands.GroupCog, name = "check"):
             userCreatedDelta = (timeNow - userCreated).days
             userName = userInfo['name']
             enemyGroups = [5248163, 4886107, 15294045, 15635299, 15815549, 15815551, 15815554, 15815556, 13529471, 13529222, 13871657, 13819322, 16139753, 13439446, 13529342, 13529439, 13529455, 9898651, 11439837, 10134262, 3962491, 2795991, 2650759, 2682451, 6521883, 16637782, 16538494]
-            mainGroup = 872876
             try:
                 enemyGroupsCounter = userGroups + enemyGroups
                 #print(groupsCounter)
@@ -165,8 +164,10 @@ class Check(commands.GroupCog, name = "check"):
             embed2.add_field(name="Account Age", value=f"{(lambda: '>60 days', lambda: '__<60 DAYS__')[userCreatedDelta < 60]()}", inline=True)
             embed2.add_field(name="Enemy Groups", value=f"{(lambda: 'Clear!', lambda: '__ENEMY GROUPS DETECTED__')[enemyCounter > 0]()}", inline=False)
             embed2.add_field(name="Blacklisted", value=f"{(lambda: 'Not detected', lambda: '__BLACKLISTED__')[userName in nameValues and lifted == 'FALSE']()}", inline=True)
-            embed2.add_field(name="Rank in Main Group:", value=f"{mainGroupRole}", inline=True)
-            #embed2.add_field(name="Ranked Foreigner:", value=f"{(lambda: '__FOREIGNER__', lambda: 'Not Foreigner')[mainGroup in userGroups]()}", inline=True)
+            if mainGroupRole == "Foreigner":
+                embed2.add_field(name="Rank in Main Group:", value=f"__{mainGroupRole.upper()}__", inline=True)
+            else:
+                embed2.add_field(name="Rank in Main Group:", value=f"{mainGroupRole}", inline=True)
             embed2.set_thumbnail(url=userThumbnail)
             await interaction.edit_original_response(embed=embed2)
         except Exception as e:
