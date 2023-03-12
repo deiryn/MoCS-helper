@@ -77,12 +77,8 @@ class Check(commands.GroupCog, name = "check"):
             #request thumbnail + wait 1 second
             userThumbnail = await getThumbnail(userid)
             userCreated = userInfo['created']
-            try:
-                userCreated = datetime.datetime.strptime(userCreated, '%Y-%m-%dT%H:%M:%S.%fZ')
-            except Exception as e:
-                print(f"usercreated exception: {e}")
-                userCreated = datetime.datetime.strptime(userCreated, '%Y-%m-%dT%H:%M:%SZ')
-
+            userCreated = userCreated[:userCreated.find('.')]
+            userCreated = datetime.datetime.strptime(userCreated, '%Y-%m-%dT%H:%M:%S')
             timeNow = datetime.datetime.now()
             userCreatedDelta = (timeNow - userCreated).days
             userName = userInfo['name']
