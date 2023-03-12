@@ -64,7 +64,13 @@ class Check(commands.GroupCog, name = "check"):
 
         try:
             userGroups = get(f'https://groups.roblox.com/v2/users/{userid}/groups/roles').json()
-            
+        
+        except Exception as e:
+            print(e)
+            embed2 = discord.Embed(title="CT CHECK:", description="ROBLOX API ERROR.", color=discord.Color.red)
+            await interaction.edit_original_response(embed=embed2)
+            return
+        try:
             for item in userGroups['data']:
                 temporaryItem = item
                 if temporaryItem['group']['id'] == 872876:
@@ -83,19 +89,16 @@ class Check(commands.GroupCog, name = "check"):
             userCreatedDelta = (timeNow - userCreated).days
             userName = userInfo['name']
             enemyGroups = [5248163, 4886107, 15294045, 15635299, 15815549, 15815551, 15815554, 15815556, 13529471, 13529222, 13871657, 13819322, 16139753, 13439446, 13529342, 13529439, 13529455, 9898651, 11439837, 10134262, 3962491, 2795991, 2650759, 2682451, 6521883, 16637782, 16538494]
-            try:
-                enemyGroupsCounter = userGroups + enemyGroups
-                #print(groupsCounter)
-                enemyCounter = 0
-                for element in enemyGroups:
-                    if countOf(enemyGroupsCounter, element) > 1:
-                        enemyCounter += 1
-                #print(enemyCounter)
-            except Exception as e:
-                print(e)
+            enemyGroupsCounter = userGroups + enemyGroups
+            #print(groupsCounter)
+            enemyCounter = 0
+            for element in enemyGroups:
+                if countOf(enemyGroupsCounter, element) > 1:
+                    enemyCounter += 1
+            #print(enemyCounter)
         except Exception as e:
             print(e)
-            embed2 = discord.Embed(title="CT CHECK:", description="ROBLOX API ERROR.", color=discord.Color.red)
+            embed2 = discord.Embed(title="CT CHECK:", description="ALGORITHM ERROR. SECTION: API", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
             return
 
