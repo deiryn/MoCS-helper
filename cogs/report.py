@@ -18,22 +18,24 @@ class Report(commands.GroupCog, name="report"):
         yourName = ui.TextInput(label="Your name (optional)", style=discord.TextStyle.short, placeholder="username", required=False, default="Anonymous")
     
         async def on_submit(self, interaction: discord.Interaction, bot: commands.Bot):
-            embedResponse = discord.Embed(title="CS IA REPORT", description="This is a copy of the report you've sent", color=0xFE0000)
-            embedResponse.add_field(name="Name", value=self.name, inline=False)
-            embedResponse.add_field(name="Description", value=self.description, inline=False)
-            embedResponse.add_field(name="Time", value=self.time, inline=False)
-            embedResponse.add_field(name="Proof", value=self.proof, inline=False)
-            embedResponse.add_field(name="Reporter name provided", value=self.yourName, inline=False)
-            embedResponse.timestamp = datetime.utcnow()
-            await interaction.response.send_message(embed=embedResponse, ephemeral=True)
-            embedResponse.description = "New report logged:"
             try:
+                embedResponse = discord.Embed(title="CS IA REPORT", description="This is a copy of the report you've sent", color=0xFE0000)
+                embedResponse.add_field(name="Name", value=self.name, inline=False)
+                embedResponse.add_field(name="Description", value=self.description, inline=False)
+                embedResponse.add_field(name="Time", value=self.time, inline=False)
+                embedResponse.add_field(name="Proof", value=self.proof, inline=False)
+                embedResponse.add_field(name="Reporter name provided", value=self.yourName, inline=False)
+                embedResponse.timestamp = datetime.utcnow()
+                await interaction.response.send_message(embed=embedResponse, ephemeral=True)
+                embedResponse.description = "New report logged:"
+            
                 MOCS_GUILD = bot.get_guild(705548936529575998)
                 loggingChannel = discord.utils.get(MOCS_GUILD.channels, id=1091019474477518868)
+            
+                await loggingChannel.send("<@&1003860471327244338>", embed=embedResponse)
             except Exception as e:
                  print(e)
-            await loggingChannel.send("<@&1003860471327244338>", embed=embedResponse)
-
+                 
     @app_commands.command(name = "create", description="Start the MoCS IA report process.")
     async def createreport(self, interaction: discord.Interaction):
         await interaction.response.send_modal(Report.IAReport())
