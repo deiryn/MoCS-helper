@@ -27,7 +27,8 @@ class Report(commands.GroupCog, name="report"):
             embedResponse.timestamp = datetime.utcnow()
             await interaction.response.send_message(embed=embedResponse, ephemeral=True)
             embedResponse.description = "New report logged:"
-            loggingChannel = discord.utils.get(interaction.guild.channels, id=1091019474477518868)
+            MOCS_GUILD = discord.Client.get_guild(705548936529575998)
+            loggingChannel = discord.utils.get(MOCS_GUILD.channels, id=1091019474477518868)
             await loggingChannel.send("<@&1003860471327244338>", embed=embedResponse)
 
     @app_commands.command(name = "create", description="Start the MoCS IA report process.")
