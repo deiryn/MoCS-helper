@@ -39,7 +39,7 @@ class Report(commands.GroupCog, name="report"):
             embed.description = "**\|\| NEW REPORT \|\|**"
             client = interaction.client
             REPORTS_CHANNEL = client.get_channel(1091019474477518868)
-            await REPORTS_CHANNEL.send("NO PING", embed=embed)
+            await REPORTS_CHANNEL.send("<@&1003860471327244338>", embed=embed)
             
             #MOCS_GUILD = bot.get_guild(567760154825850911)
             #REPORT_CHANNEL = client.get_channel(941950163226857482)
