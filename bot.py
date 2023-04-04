@@ -30,8 +30,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    #activity = discord.Activity(name="becoming the best bot on IRF", type=5)
-    activity = discord.Activity(name="The Great Trial", type=discord.ActivityType.watching)
+    activity = discord.Activity(name="becoming the best bot on IRF", type=5)
     await bot.change_presence(activity=activity)
 
 
