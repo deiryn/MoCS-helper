@@ -1,9 +1,11 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord import app_commands
 import os
 import asyncio
 from json import load
+from random import shuffle
+from time import sleep
 
 config = load(open('config.json'))
 
@@ -20,19 +22,40 @@ from googleapiclient.errors import HttpError
 '''
 bot = commands.Bot(command_prefix = '$', help_command = None, intents=discord.Intents.all())
 
+def scramble(original):
+    destination = original
+    shuffle(destination)
+    return destination
 
+communityStatus = [{"type": discord.ActivityType.watching, "status": "people use /ct check"}, {"type": discord.ActivityType.watching, "status": "Jon"},
+                   {"type": discord.ActivityType.listening, "status": "your suggestions!"}, {"type": discord.ActivityType.competing, "status": "becoming the best bot on IRF"},
+                   {"type": discord.ActivityType.watching, "status": "the Officer basement"}, {"type": discord.ActivityType.competing, "status": "testing citizens"},
+                   {"type": discord.ActivityType.streaming, "status": "the candidates"}, {"type": discord.ActivityType.playing, "status": "on Sevas to recruit people"},
+                   {"type": discord.ActivityType.watching, "status": "the Officer basement"}]
+
+randomStatus = scramble(communityStatus)
+currentPositionInList = 0
+elementsInRandomStatus = len(randomStatus)-1
 
 @bot.event
 async def on_ready():
+    await change_status.start()
     await bot.tree.sync()
     print('------')
     print('Logged in as:')
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-    activity = discord.Activity(name="becoming the best bot on IRF", type=5)
-    await bot.change_presence(activity=activity)
 
+
+@tasks.loop(seconds=10)
+async def change_status():
+    if currentPositionInList != elementsInRandomStatus:
+        await bot.change_presence(activity=discord.Activity(name=randomStatus[currentPositionInList]['status'], type=randomStatus[currentPositionInList]['type']))
+        currentPositionInList = currentPositionInList +1
+    else:
+        await bot.change_presence(activity=discord.Activity(name=randomStatus[currentPositionInList]['status'], type=randomStatus[currentPositionInList]['type']))
+        currentPositionInList = 0
 
 async def load_extensions():
     for filename in os.listdir("./cogs"):
