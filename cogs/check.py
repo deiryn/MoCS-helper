@@ -84,6 +84,7 @@ class Check(commands.GroupCog, name = "check"):
             embed2 = discord.Embed(title="CT CHECK:", description="ROBLOX API ERROR.", color=discord.Color.red)
             await interaction.edit_original_response(embed=embed2)
             return
+        mainGroupRole = None
         try:
             for item in userGroups['data']:
                 temporaryItem = item
@@ -179,8 +180,10 @@ class Check(commands.GroupCog, name = "check"):
             embed2.add_field(name="Blacklisted", value=f"{(lambda: 'Not detected', lambda: '__BLACKLISTED__')[userName in nameValues and lifted == 'FALSE']()}", inline=True)
             if mainGroupRole == "Foreigner":
                 embed2.add_field(name="Rank in Main Group:", value=f"__{mainGroupRole.upper()}__", inline=True)
-            else:
+            elif not mainGroupRole == "Foreigner":
                 embed2.add_field(name="Rank in Main Group:", value=f"{mainGroupRole}", inline=True)
+            else:
+                embed2.add_field(name="Rank in Main Group:", value="NONE RETURNED (not supposed to happen!)", inline=True)
             embed2.set_thumbnail(url=userThumbnail)
             await interaction.edit_original_response(embed=embed2)
         except Exception as e:
