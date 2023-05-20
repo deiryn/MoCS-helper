@@ -86,12 +86,15 @@ class Check(commands.GroupCog, name = "check"):
             return
         mainGroupRole = None
         try:
-            for item in userGroups['data']:
-                temporaryItem = item
-                if temporaryItem['group']['id'] == 872876:
-                    mainGroupRole = temporaryItem['role']['name']
-                    break
-                mainGroupRole = "Foreigner"       
+            if userGroups['data'] == []:
+                mainGroupRole = "Foreigner"
+            else:
+                for item in userGroups['data']:
+                    temporaryItem = item
+                    if temporaryItem['group']['id'] == 872876:
+                        mainGroupRole = temporaryItem['role']['name']
+                        break
+                    mainGroupRole = "Foreigner"       
             userGroups = [value for i in userGroups['data'] for value in i.values()]
             userGroups = [sub['id'] for sub in userGroups]
             userInfo = get(f'https://users.roblox.com/v1/users/{userid}').json()
@@ -183,7 +186,7 @@ class Check(commands.GroupCog, name = "check"):
             elif not mainGroupRole == "Foreigner" and not mainGroupRole == None:
                 embed2.add_field(name="Rank in Main Group:", value=f"{mainGroupRole}", inline=True)
             else:
-                embed2.add_field(name="Rank in Main Group:", value="NONE RETURNED (not supposed to happen!)", inline=True)
+                embed2.add_field(name="Rank in Main Group:", value="NONE RETURNED (**not supposed to happen!**)", inline=True)
             embed2.set_thumbnail(url=userThumbnail)
             await interaction.edit_original_response(embed=embed2)
         except Exception as e:
