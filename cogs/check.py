@@ -180,7 +180,7 @@ class Check(commands.GroupCog, name = "check"):
             embed2.add_field(name="Blacklisted", value=f"{(lambda: 'Not detected', lambda: '__BLACKLISTED__')[userName in nameValues and lifted == 'FALSE']()}", inline=True)
             if mainGroupRole == "Foreigner":
                 embed2.add_field(name="Rank in Main Group:", value=f"__{mainGroupRole.upper()}__", inline=True)
-            elif not mainGroupRole == "Foreigner":
+            elif not mainGroupRole == "Foreigner" and not mainGroupRole == None:
                 embed2.add_field(name="Rank in Main Group:", value=f"{mainGroupRole}", inline=True)
             else:
                 embed2.add_field(name="Rank in Main Group:", value="NONE RETURNED (not supposed to happen!)", inline=True)
