@@ -228,7 +228,7 @@ class Check(commands.GroupCog, name = "check"):
         embed.add_field(name="Enemy Groups", value="*Loading data in...*", inline=False)
         embed.add_field(name="In Main IRF group:", value="*Loading data in...*", inline=True)
         embed.add_field(name="In The Bolsheviks group:", value="*Loading data in...*", inline=True)
-        embed.add_field(name="<2 ministries:", value=f"*Loading data in...*", inline=True)
+        embed.add_field(name="<3 ministries:", value=f"*Loading data in...*", inline=True)
         embed.add_field(name="Blacklisted", value="*Loading data in...*", inline=False)
         #embed.set_thumbnail(url=userThumbnail)
         await interaction.response.send_message(embed=embed)
