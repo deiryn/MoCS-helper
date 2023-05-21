@@ -25,6 +25,16 @@ async def getThumbnail(userid):
     userThumbnail = userThumbnail['data'][0]['imageUrl']
     return userThumbnail
 
+# globals: groups #
+ezicGroups = [5248163, 32390494, 32390383, 32373553]
+teutonniaGroups = [15294045, 15815549, 15635299, 15815551, 15815554, 15815556, 15822489]
+etgGroups = [4886107, 4886142, 4886144, 4886140, 4886147, 5150482, 5290857, 3633169]
+enemyGroups = ezicGroups + teutonniaGroups + etgGroups
+bolshGroup = 991882
+mainGroup = 872876
+ministerialGroups = [3052496, 5217820, 5458754, 5225010, 5291387]
+# globals: groups end #
+
 #@bot.tree.command(name="check", description="Make a check on the profile. Useful for before and after CT.")
 class Check(commands.GroupCog, name = "check"):
 
@@ -106,7 +116,7 @@ class Check(commands.GroupCog, name = "check"):
             timeNow = datetime.datetime.now()
             userCreatedDelta = (timeNow - userCreated).days
             userName = userInfo['name']
-            enemyGroups = [5248163, 4886107, 15294045, 15635299, 15815549, 15815551, 15815554, 15815556, 13529471, 13529222, 13871657, 13819322, 16139753, 13439446, 13529342, 13529439, 13529455, 9898651, 11439837, 10134262, 3962491, 2795991, 2650759, 2682451, 6521883, 16637782, 16538494]
+            #enemygroups were here
             enemyGroupsCounter = userGroups + enemyGroups
             #print(groupsCounter)
             enemyCounter = 0
@@ -236,10 +246,13 @@ class Check(commands.GroupCog, name = "check"):
             timeNow = datetime.datetime.now()
             userCreatedDelta = (timeNow - userCreated).days
             userName = userInfo['name']
-            enemyGroups = [5248163, 4886107, 15294045, 15635299, 15815549, 15815551, 15815554, 15815556, 13529471, 13529222, 13871657, 13819322, 16139753, 13439446, 13529342, 13529439, 13529455, 9898651, 11439837, 10134262, 3962491, 2795991, 2650759, 2682451, 6521883, 16637782, 16538494]
-            bolshGroup = 991882
-            mainGroup = 872876
-            ministerialGroups = [3052496, 5217820, 5458754, 5225010, 5291387]
+            #ezicGroups = [5248163, 32390494, 32390383, 32373553]
+            #teutonniaGroups = [15294045, 15815549, 15635299, 15815551, 15815554, 15815556, 15822489]
+            #etgGroups = [4886107, 4886142, 4886144, 4886140, 4886147, 5150482, 5290857, 3633169]
+            #enemyGroups = ezicGroups + teutonniaGroups + etgGroups
+            #bolshGroup = 991882
+            #mainGroup = 872876
+            #ministerialGroups = [3052496, 5217820, 5458754, 5225010, 5291387]
             try:
                 enemyGroupsCounter = userGroups + enemyGroups
                 #print(groupsCounter)
