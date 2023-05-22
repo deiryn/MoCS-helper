@@ -95,6 +95,7 @@ class Check(commands.GroupCog, name = "check"):
             await interaction.edit_original_response(embed=embed2)
             return
         mainGroupRole = None
+        #get rank in main group:
         try:
             if userGroups['data'] == []:
                 mainGroupRole = "Foreigner"
@@ -104,7 +105,7 @@ class Check(commands.GroupCog, name = "check"):
                     if temporaryItem['group']['id'] == 872876:
                         mainGroupRole = temporaryItem['role']['name']
                         break
-                    mainGroupRole = "Foreigner"       
+                    mainGroupRole = "Foreigner"
             userGroups = [value for i in userGroups['data'] for value in i.values()]
             userGroups = [sub['id'] for sub in userGroups]
             userInfo = get(f'https://users.roblox.com/v1/users/{userid}').json()
@@ -253,23 +254,42 @@ class Check(commands.GroupCog, name = "check"):
             #bolshGroup = 991882
             #mainGroup = 872876
             #ministerialGroups = [3052496, 5217820, 5458754, 5225010, 5291387]
-            try:
-                enemyGroupsCounter = userGroups + enemyGroups
-                #print(groupsCounter)
-                enemyCounter = 0
-                for element in enemyGroups:
-                    if countOf(enemyGroupsCounter, element) > 1:
-                        enemyCounter = enemyCounter + 1
+            #try:
+            enemyGroupsCounter = userGroups + enemyGroups
+            #print(groupsCounter)
+            enemyCounter = 0
+            for element in enemyGroups:
+                if countOf(enemyGroupsCounter, element) > 1:
+                    enemyCounter = enemyCounter + 1
+        
             
-                ministerialGroupsCounter = userGroups + ministerialGroups
-                ministerialCounter = 0
-                for element in ministerialGroups:
-                    if countOf(ministerialGroupsCounter, element) > 1:
-                        ministerialCounter += 1
-                    
+            ministerialGroupsCounter = userGroups + ministerialGroups
+            ministerialCounter = 0
+            for element in ministerialGroups:
+                if countOf(ministerialGroupsCounter, element) > 1:
+                    ministerialCounter += 1
+            
+
+            if ministerialCounter > 0:
+                temporaryUserGroups = get(f'https://groups.roblox.com/v2/users/{userid}/groups/roles').json()['data']
+                for element in temporaryUserGroups:
+                    match element['group']['id']:
+                        case 3052496:
+                            if element['role']['rank'] == 10:
+                                ministerialCounter -= 1
+                        case 5217820:
+                            if element['role']['rank'] == 1 or element['role']['rank'] == 5:
+                                ministerialCounter -= 1
+                        case 5458754:
+                            if element['role']['rank'] == 5 or element['role']['rank'] == 6 or element['role']['rank'] == 7:
+                                ministerialCounter -= 1
+
+                            
+
                 #print(enemyCounter)
-            except Exception as e:
-                print(e)
+            #except Exception as e:
+                #print(e)
+            #    pass
 
             await sleep(1)
         except Exception as e:
