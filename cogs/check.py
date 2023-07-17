@@ -27,9 +27,10 @@ async def getThumbnail(userid):
 
 # globals: groups #
 ezicGroups = [5248163, 32390494, 32390383, 32373553]
-teutonniaGroups = [15294045, 15815549, 15635299, 15815551, 15815554, 15815556, 15822489]
+#teutonniaGroups = [15294045, 15815549, 15635299, 15815551, 15815554, 15815556, 15822489] removed!
 etgGroups = [4886107, 4886142, 4886144, 4886140, 4886147, 5150482, 5290857, 3633169]
-enemyGroups = ezicGroups + teutonniaGroups + etgGroups
+#enemyGroups = ezicGroups + teutonniaGroups + etgGroups
+enemyGroups = ezicGroups + etgGroups
 bolshGroup = 991882
 mainGroup = 872876
 ministerialGroups = [3052496, 5217820, 5458754, 5225010, 5291387]
