@@ -210,7 +210,7 @@ class Check(commands.GroupCog, name = "check"):
     @app_commands.choices(choice=[
         discord.app_commands.Choice(name='Link', value = 1),
         discord.app_commands.Choice(name="Nickname", value = 2)])
-    async def ie(self, interaction: discord.Interaction, user: str):
+    async def ie(self, interaction: discord.Interaction, choice: discord.app_commands.Choice[int], user: str):
         
         userid = user.lower()
         if choice.value == 1:
