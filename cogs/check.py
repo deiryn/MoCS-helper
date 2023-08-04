@@ -207,22 +207,37 @@ class Check(commands.GroupCog, name = "check"):
             await interaction.edit_original_response(embed=embed2)
 
     @app_commands.command(name = "ie", description = "A check that would be useful for IE to see the important info of the user before passing them.")
+    @app_commands.choices(choice=[
+        discord.app_commands.Choice(name='Link', value = 1),
+        discord.app_commands.Choice(name="Nickname", value = 2)])
     async def ie(self, interaction: discord.Interaction, user: str):
         
         userid = user.lower()
-        if userid.startswith("http://"):
-            await interaction.response.send_message("Please use `https://`.", ephemeral=True)
-            return
-        elif not userid.startswith("https://www.roblox.com/users/"):
-            await interaction.response.send_message("I cannot recognize this url.", ephemeral=True)
-            return
-        else:
-            if not userid.endswith("/profile"):
-                await interaction.response.send_message("Please include `/profile` in the end of your link.", ephemeral=True)
+        if choice.value == 1:
+            if userid.startswith("http://"):
+                await interaction.response.send_message("Please use `https://`.", ephemeral=True)
+                return
+            elif not userid.startswith("https://www.roblox.com/users/"):
+                await interaction.response.send_message("I cannot recognize this url. Please put in a link to the user profile.", ephemeral=True)
                 return
             else:
-                lengthOfURL = len(userid)
-                userid = userid[29:lengthOfURL-8]
+                if not userid.endswith("/profile"):
+                    await interaction.response.send_message("Please include `/profile` in the end of your link.", ephemeral=True)
+                    return
+                else:
+                    lengthOfURL = len(userid)
+                    userid = userid[29:lengthOfURL-8]
+        else:
+            request = {"usernames": [f"{userid}"], "excludeBannedUsers": True}
+            getUsers = post("https://users.roblox.com/v1/usernames/users", json=request)
+            if getUsers.status_code != 200:
+                await interaction.response.send_message(f'Request error [HTTP {getUsers.status_code}], try again or report the problem.', ephermal=True)
+                return
+            elif len(getUsers.json()['data']) == 0:
+                await interaction.response.send_message("User not found! Try to specify request!", ephemeral=True)
+                return
+            else:
+                userid = getUsers.json()['data'][0]['id']
         
         embed = discord.Embed(title="IE CHECK:", description="Running an IE check...", color=0x8F55E5)
         embed.add_field(name="Name", value="*Loading data in...*", inline=True)
