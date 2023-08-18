@@ -9,7 +9,7 @@ class Say(commands.GroupCog, name="say"):
     
     @app_commands.command(name = "goodbye")
     async def byebye(self, interaction: discord.Interaction):
-        if interaction.user.id == 267672597045575691:
+        if interaction.user.id == 267672597045575690:
             await interaction.response.send_message("I'm feeling sleepy, is it time to go? Well, it was visiting you, goodbye! — <@1052310605735919646> \:)", ephemeral=True)
         else:
             await interaction.response.defer(ephemeral=True)
