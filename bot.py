@@ -45,6 +45,7 @@ async def load_extensions():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
+            print("loading goodbye")
     if not goodbyeSwitch:
         await bot.unload_extension("cogs.goodbye")
         print('not loading goodbye')
