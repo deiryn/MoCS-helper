@@ -5,6 +5,13 @@ import os
 import asyncio
 from json import load
 
+goodbyeSwitch = input("type or don't: ")
+if goodbyeSwitch == "y":
+    goodbyeSwitch = True
+else:
+    goodbyeSwitch = False
+
+
 config = load(open('config.json'))
 
 '''
@@ -38,10 +45,14 @@ async def load_extensions():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
+    if not goodbyeSwitch:
+        await bot.unload_extension("cogs.goodbye")
+        print('not loading goodbye')
 
 async def main():
     async with bot:
         await load_extensions()
         await bot.start(config['token'])
+
 
 asyncio.run(main())
