@@ -41,14 +41,15 @@ async def load_extensions():
 
 async def main():
     async with bot:
+        @app_commands.command(name="saygoodbye")
+        async def goodbye(interaction: discord.Interaction):
+            if interaction.user.id == 267672597045575690:
+                print("yes")
+            else:
+                await interaction.response.send_message("command not found", ephemeral=True)
         await load_extensions()
         await bot.start(config['token'])
 
-@app_commands.command(name="saygoodbye")
-async def goodbye(interaction: discord.Interaction):
-    if interaction.user.id == 267672597045575690:
-        print("yes")
-    else:
-        await interaction.response.send_message("command not found", ephemeral=True)
+
 
 asyncio.run(main())
