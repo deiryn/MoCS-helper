@@ -44,6 +44,4 @@ async def main():
         await load_extensions()
         await bot.start(config['token'])
 
-
-
 asyncio.run(main())
