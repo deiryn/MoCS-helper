@@ -48,7 +48,7 @@ async def load_extensions():
             print("loading goodbye")
     if not goodbyeSwitch:
         await bot.unload_extension("cogs.goodbye")
-        print('not loading goodbye')
+        #print('not loading goodbye')
 
 async def main():
     async with bot:
